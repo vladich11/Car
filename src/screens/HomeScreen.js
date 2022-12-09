@@ -14,13 +14,11 @@ const HomeScreen = ({ navigation }) => {
 
   const validate = () => {
     if (!numberPlate) setError('אנא הזן מספר לוחית רישוי');
-    else if (numberPlate < 5)
+    else if (Number(numberPlate) < 5)
       setError('אנא הזן מספר לוחית-רישוי בת 5 ספרות לפחות.');
     else navigation.navigate('Info', { numberPlate });
   };
-  const handleError = () => {
-    setError('');
-  };
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {error && <Text style={{ color: 'red' }}>{error}</Text>}
