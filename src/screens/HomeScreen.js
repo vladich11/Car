@@ -12,13 +12,15 @@ const HomeScreen = ({ navigation }) => {
   const [numberPlate, setNumberplate] = useState('');
   const [error, setError] = useState('');
 
-  // const validate = () => {
-  //   if (!numberPlate) setError('אנא הזן מספר לוחית רישוי');
-  //   else if (numberPlate < 5)
-  //     setError('אנא הזן מספר לוחית-רישוי בת 5 ספרות לפחות.');
-  //   else navigation.navigate('Info', { numberPlate });
-  // };
-
+  const validate = () => {
+    if (!numberPlate) setError('אנא הזן מספר לוחית רישוי');
+    else if (numberPlate < 5)
+      setError('אנא הזן מספר לוחית-רישוי בת 5 ספרות לפחות.');
+    else navigation.navigate('Info', { numberPlate });
+  };
+  const handleError = () => {
+    setError('');
+  };
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {error && <Text style={{ color: 'red' }}>{error}</Text>}
@@ -31,10 +33,7 @@ const HomeScreen = ({ navigation }) => {
         keyboardType="numeric"
       ></TextInput>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Info', { numberPlate })}
-      >
+      <TouchableOpacity style={styles.button} onPress={() => validate()}>
         <Text>חפש מספר רכב</Text>
       </TouchableOpacity>
     </View>
