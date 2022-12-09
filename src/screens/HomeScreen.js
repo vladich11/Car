@@ -13,19 +13,23 @@ const HomeScreen = ({ navigation }) => {
   const [error, setError] = useState('');
 
   const validate = () => {
-    if (!numberPlate) setError('אנא הזן מספר לוחית רישוי');
-    else if (Number(numberPlate) < 5)
-      setError('אנא הזן מספר לוחית-רישוי בת 5 ספרות לפחות.');
+    if (!numberPlate) setError('אנא הזן מספר רכב');
+    else if (numberPlate.length < 5)
+      setError('אנא הזן מספר רכב בן 5 ספרות לפחות');
     else navigation.navigate('Info', { numberPlate });
+  };
+  const handleError = () => {
+    setError('');
   };
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {error && <Text style={{ color: 'red' }}>{error}</Text>}
+      {<Text>{error && <Text style={{ color: 'red' }}>{error}</Text>}</Text>}
       <TextInput
-        placeholder="הזן מסר רכב"
+        placeholder="הזן מספר רכב"
         style={styles.textInput}
         onChangeText={setNumberplate}
+        onFocus={handleError}
         value={numberPlate}
         textAlign="right"
         keyboardType="numeric"
