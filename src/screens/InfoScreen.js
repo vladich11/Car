@@ -53,7 +53,7 @@ const InfoScreen = ({ route, navigation }) => {
           {!data ? (
             <Text>מספר רכב שהוזן אינו קיים במאגר</Text>
           ) : (
-            <View>
+            <View style={{ textAlign: 'right' }}>
               <Text>מספר רכב: {data.mispar_rechev}</Text>
               <Text>כינוי מסחרי: {data.kinuy_mishari}</Text>
               <Text>שם תוצר: {data.tozeret_nm} </Text>
@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 0,
-    // alignItems: 'right',
     justifyContent: 'space-between',
     marginHorizontal: 3,
     marginVertical: 5,
