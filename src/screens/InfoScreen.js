@@ -1,36 +1,40 @@
-import { SafeAreaView, ScrollView, StyleSheet, View, Text } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import urls from "../api/urls";
 
 const InfoScreen = ({ route, navigation }) => {
   // Car number plate number from HomeScreen
   const { numberPlate } = route.params;
   // General data for car numberplate
-  const [data, setData] = useState('');
+  const [data, setData] = useState("");
 
   // History data for car numberplate
   // const [historyData, setHistoryData] = useState('');
 
   const getDataForNumberPlate = async () => {
     try {
-      const url = `https://data.gov.il/api/3/action/datastore_search?resource_id=053cea08-09bc-40ec-8f7a-156f0677aff3&&filters={"mispar_rechev":${numberPlate}}`;
-      const response = await fetch(url, {
-        method: 'GET',
-      });
+      const response = await fetch(
+        urls.searchCarInfoByNumberPlate(numberPlate),
+        {
+          method: "GET",
+        }
+      );
       const serverData = await response.json();
-      if (typeof serverData.result !== 'undefined')
+      if (typeof serverData.result !== "undefined")
         setData(serverData.result.records[0]);
     } catch (error) {
       console.error(error);
-    } finally {
     }
   };
 
   const getHistoryDataForNumberPlate = async () => {
     try {
-      const url = `https://data.gov.il/api/3/action/datastore_search?resource_id=56063a99-8a3e-4ff4-912e-5966c0279bad&filters={"mispar_rechev":${numberPlate}}`;
-      const response = await fetch(url, {
-        method: 'GET',
-      });
+      const response = await fetch(
+        urls.searchHistoryCarInfoByNumberPlate(numberPlate),
+        {
+          method: "GET",
+        }
+      );
       const serverData = await response.json();
       setHistoryData(serverData.result.records[0]);
     } catch (error) {
@@ -48,12 +52,12 @@ const InfoScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Text style={{ margin: 10, fontWeight: 'bold' }}>מידע כללי</Text>
+        <Text style={{ margin: 10, fontWeight: "bold" }}>מידע כללי</Text>
         <Text>
           {!data ? (
             <Text>מספר רכב שהוזן אינו קיים במאגר</Text>
           ) : (
-            <View style={{ textAlign: 'right' }}>
+            <View style={{ textAlign: "right" }}>
               <Text>מספר רכב: {data.mispar_rechev}</Text>
               <Text>כינוי מסחרי: {data.kinuy_mishari}</Text>
               <Text>שם תוצר: {data.tozeret_nm} </Text>
@@ -111,12 +115,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 0,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     marginHorizontal: 3,
     marginVertical: 5,
   },
   item: {
-    backgroundColor: '#f9c2ff',
+    backgroundColor: "#f9c2ff",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
@@ -125,8 +129,8 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
     padding: 10,
   },
 });
