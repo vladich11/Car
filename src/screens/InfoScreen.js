@@ -17,7 +17,8 @@ const InfoScreen = ({ route, navigation }) => {
         method: 'GET',
       });
       const serverData = await response.json();
-      setData(serverData.result.records[0]);
+      if (typeof serverData.result !== 'undefined')
+        setData(serverData.result.records[0]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 0,
-    alignItems: 'right',
+    // alignItems: 'right',
     justifyContent: 'space-between',
     marginHorizontal: 3,
     marginVertical: 5,

@@ -16,6 +16,7 @@ const HomeScreen = ({ navigation }) => {
     if (!numberPlate) setError('אנא הזן מספר רכב');
     else if (numberPlate.length < 5)
       setError('אנא הזן מספר רכב בן 5 ספרות לפחות');
+    else if (Number(numberPlate) < 11111) setError('אנא הזן מספר רכב תקין');
     else navigation.navigate('Info', { numberPlate });
   };
   const handleError = () => {
@@ -46,6 +47,7 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   textInput: {
+    width: 150,
     height: 40,
     margin: 12,
     borderWidth: 1,
