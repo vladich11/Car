@@ -8,7 +8,7 @@ const InfoScreen = ({ route, navigation }) => {
   const [data, setData] = useState('');
 
   // History data for car numberplate
-  // const [historyData, setHistoryData] = useState('');
+  const [historyData, setHistoryData] = useState('');
 
   const getDataForNumberPlate = async () => {
     try {
@@ -32,7 +32,9 @@ const InfoScreen = ({ route, navigation }) => {
         method: 'GET',
       });
       const serverData = await response.json();
-      setHistoryData(serverData.result.records[0]);
+      if (typeof serverData.result !== 'undefined')
+        setHistoryData(serverData.result.records[0]);
+      // console.log(serverData.result.records[0]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -42,7 +44,7 @@ const InfoScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     getDataForNumberPlate();
-    // getHistoryDataForNumberPlate();
+    getHistoryDataForNumberPlate();
   }, []);
 
   return (
@@ -81,25 +83,30 @@ const InfoScreen = ({ route, navigation }) => {
           )}
         </Text>
 
-        {/* 
         <Text style={{ margin: 10, fontWeight: 'bold' }}>היסטוריית רכב</Text>
 
-        <Text>ספר מנוע: {historyData.mispar_manoa}</Text>
-        <Text>
-          נסועה כפי שדווח במועד הטסט האחרון: {historyData.kilometer_test_aharon}{' '}
-          ק"מ{' '}
-        </Text>
-        <Text>
-          האם בוצע שינוי מבנה באחד מהשדות גפ\"מ,צבע,צמיג? (1 כן 0 לא) :{' '}
-          {historyData.shinui_mivne_ind}
-        </Text>
-        <Text>האם התווסף גפ\"מ? (1 כן 0 לא) : {historyData.gapam_ind}</Text>
-        <Text>שינוי צבע (1 כן 0 לא) : {historyData.shnui_zeva_ind}</Text>
-        <Text>
-          {' '}
-          שינוי במידת צמיג (1 כן 0 לא): {historyData.shinui_zmig_ind}
-        </Text>
-        <Text>מקוריות: {historyData.mkoriut_nm}</Text> */}
+        {!historyData ? (
+          <Text>מספר רכב שהוזן אינו קיים במאגר</Text>
+        ) : (
+          <View>
+            <Text>ספר מנוע: {historyData.mispar_manoa}</Text>
+            <Text>
+              נסועה כפי שדווח במועד הטסט האחרון:{' '}
+              {historyData.kilometer_test_aharon} ק"מ{' '}
+            </Text>
+            <Text>
+              האם בוצע שינוי מבנה באחד מהשדות גפ\"מ,צבע,צמיג? (1 כן 0 לא) :{' '}
+              {historyData.shinui_mivne_ind}
+            </Text>
+            <Text>האם התווסף גפ\"מ? (1 כן 0 לא) : {historyData.gapam_ind}</Text>
+            <Text>שינוי צבע (1 כן 0 לא) : {historyData.shnui_zeva_ind}</Text>
+            <Text>
+              {' '}
+              שינוי במידת צמיג (1 כן 0 לא): {historyData.shinui_zmig_ind}
+            </Text>
+            <Text>מקוריות: {historyData.mkoriut_nm}</Text>
+          </View>
+        )}
       </ScrollView>
     </SafeAreaView>
   );
