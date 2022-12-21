@@ -4,28 +4,33 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import React, { useState } from "react";
+} from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 const HomeScreen = ({ navigation }) => {
-  const [numberPlate, setNumberplate] = useState("");
-  const [error, setError] = useState("");
+  const [numberPlate, setNumberplate] = useState('');
+  const [error, setError] = useState('');
 
   const validate = () => {
     if (!numberPlate) {
-      setError("אנא הזן מספר רכב");
+      setError('אנא הזן מספר רכב');
     } else {
-      navigation.navigate("Info", { numberPlate });
+      navigation.navigate('Info', { numberPlate });
     }
   };
 
   const handleError = () => {
-    setError("");
+    setError('');
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      {<Text>{error && <Text style={{ color: "red" }}>{error}</Text>}</Text>}
+    <SafeAreaView
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+    >
+      <StatusBar barStyle="dark-content" backgroundColor="#f4511e" />
+      {<Text>{error && <Text style={{ color: 'red' }}>{error}</Text>}</Text>}
       <TextInput
         placeholder="הזן מספר רכב"
         style={styles.textInput}
@@ -39,7 +44,7 @@ const HomeScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.button} onPress={() => validate()}>
         <Text>חפש מספר רכב</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -52,11 +57,11 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    textAlign: "right",
+    textAlign: 'right',
   },
   button: {
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
     padding: 10,
   },
 });
