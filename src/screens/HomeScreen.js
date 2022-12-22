@@ -4,33 +4,33 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React, { useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
+} from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 
 const HomeScreen = ({ navigation }) => {
-  const [numberPlate, setNumberplate] = useState('');
-  const [error, setError] = useState('');
+  const [numberPlate, setNumberplate] = useState("");
+  const [error, setError] = useState("");
 
   const validate = () => {
     if (!numberPlate) {
-      setError('אנא הזן מספר רכב');
+      setError("אנא הזן מספר רכב");
     } else {
-      navigation.navigate('Info', { numberPlate });
+      navigation.navigate("Info", { numberPlate });
     }
   };
 
   const handleError = () => {
-    setError('');
+    setError("");
   };
 
   return (
     <SafeAreaView
-      style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
     >
       <StatusBar barStyle="dark-content" backgroundColor="#f4511e" />
-      {<Text>{error && <Text style={{ color: 'red' }}>{error}</Text>}</Text>}
+      {<Text>{error && <Text style={{ color: "red" }}>{error}</Text>}</Text>}
       <TextInput
         placeholder="הזן מספר רכב"
         style={styles.textInput}
@@ -42,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
       ></TextInput>
 
       <TouchableOpacity style={styles.button} onPress={() => validate()}>
-        <Text>חפש מספר רכב</Text>
+        <Text>חפש</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -57,11 +57,15 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    textAlign: 'right',
+    textAlign: "right",
+    opacity: 0.7,
+    borderRadius: 3,
   },
   button: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    alignItems: "center",
+    backgroundColor: "#f4511e",
     padding: 10,
+    width: 150,
+    borderRadius: 3,
   },
 });

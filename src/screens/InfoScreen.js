@@ -1,30 +1,30 @@
-import { SafeAreaView, ScrollView, StyleSheet, View, Text } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import urls from '../api/urls';
-import { StatusBar } from 'expo-status-bar';
+import { SafeAreaView, ScrollView, StyleSheet, View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import urls from "../api/urls";
+import { StatusBar } from "expo-status-bar";
 
 const InfoScreen = ({ route, navigation }) => {
   // Car number plate number from HomeScreen
   const { numberPlate } = route.params;
   // General data for car numberplate
-  const [data, setData] = useState('');
+  const [data, setData] = useState("");
 
   // History data for car numberplate
-  const [historyData, setHistoryData] = useState('');
+  const [historyData, setHistoryData] = useState("");
 
   // Disabled certificate  for car numberplate
-  const [certificateData, setCertificateData] = useState('');
+  const [certificateData, setCertificateData] = useState("");
 
   const getDataForNumberPlate = async () => {
     try {
       const response = await fetch(
         urls.searchCarInfoByNumberPlate(numberPlate),
         {
-          method: 'GET',
+          method: "GET",
         }
       );
       const serverData = await response.json();
-      if (typeof serverData.result !== 'undefined')
+      if (typeof serverData.result !== "undefined")
         setData(serverData.result.records[0]);
     } catch (error) {
       console.error(error);
@@ -83,7 +83,7 @@ const InfoScreen = ({ route, navigation }) => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#f4511e" />
       <ScrollView>
-        <Text style={{ margin: 10, fontWeight: 'bold', fontSize: 25 }}>
+        <Text style={{ margin: 10, fontWeight: "bold", fontSize: 25 }}>
           מידע כללי
         </Text>
         <Text>
@@ -130,9 +130,10 @@ const InfoScreen = ({ route, navigation }) => {
               </Text>
               <Text
                 style={{
-                  margin: 10,
-                  fontWeight: 'bold',
-                  textAlign: 'right',
+                  marginTop: 50,
+                  marginBottom: 10,
+                  fontWeight: "bold",
+                  textAlign: "right",
                   fontSize: 25,
                 }}
               >
@@ -211,18 +212,19 @@ export default InfoScreen;
 
 const styles = StyleSheet.create({
   container: {
-    alignContent: 'center',
-    alignSelf: 'center',
+    alignContent: "center",
+    alignSelf: "center",
   },
   rightText: {
-    textAlign: 'right',
-    textAlignVertical: 'center', //Centered vertically
-    backgroundColor: '#f9f9f9',
-    marginTop: 15,
+    textAlign: "right",
+    textAlignVertical: "center", //Centered vertically
+    backgroundColor: "#f9f9f9",
     fontSize: 17,
     height: 50,
+    width: 400,
+    paddingRight: 15,
   },
   darkRow: {
-    backgroundColor: '#E0E0E0',
+    backgroundColor: "#E0E0E0",
   },
 });
