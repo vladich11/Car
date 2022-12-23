@@ -1,4 +1,11 @@
-import { SafeAreaView, ScrollView, StyleSheet, View, Text } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import urls from '../api/urls';
 import { StatusBar } from 'expo-status-bar';
@@ -15,8 +22,11 @@ const InfoScreen = ({ route, navigation }) => {
   // Disabled certificate  for car numberplate
   const [certificateData, setCertificateData] = useState('');
 
+  const [loading, setLoading] = useState(false);
+
   const getDataForNumberPlate = async () => {
     try {
+      setLoading(true);
       const response = await fetch(
         urls.searchCarInfoByNumberPlate(numberPlate),
         {
@@ -26,6 +36,7 @@ const InfoScreen = ({ route, navigation }) => {
       const serverData = await response.json();
       if (typeof serverData.result !== 'undefined')
         setData(serverData.result.records[0]);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -81,6 +92,7 @@ const InfoScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <ActivityIndicator size="small" color="#f4511e" animating={loading} />
       <StatusBar barStyle="dark-content" backgroundColor="#f4511e" />
       <ScrollView>
         <Text style={{ margin: 10, fontWeight: 'bold', fontSize: 25 }}>

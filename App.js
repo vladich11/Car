@@ -30,7 +30,7 @@ export default function App() {
           name="Info"
           component={InfoScreen}
           options={{
-            title: 'אינפורמציה',
+            title: 'מידע',
             headerStyle: {
               backgroundColor: '#f4511e',
             },
