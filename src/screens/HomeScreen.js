@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Image,
 } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -42,7 +43,7 @@ const HomeScreen = ({ navigation }) => {
       ></TextInput>
 
       <TouchableOpacity style={styles.button} onPress={() => validate()}>
-        <Text>חפש מספר רכב</Text>
+        <Text style={{ color: 'white' }}>חפש</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -58,10 +59,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     textAlign: 'right',
+    opacity: 0.7,
+    borderRadius: 3,
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    backgroundColor: '#f4511e',
     padding: 10,
+    width: 150,
+    borderRadius: 3,
   },
 });
