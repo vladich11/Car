@@ -17,13 +17,23 @@ const HomeScreen = ({ navigation }) => {
   const validate = () => {
     if (!numberPlate) {
       setError('אנא הזן מספר רכב');
+    } else if (isLessThanFiveDigits(numberPlate)) {
+      setError('אנא הזן מספר רכב בעל 5 ספרות לפחות');
     } else {
       navigation.navigate('Info', { numberPlate });
     }
   };
 
   const handleError = () => {
+    // Set error text back to empty string after the user renter a new number
     setError('');
+    // Set text input back to empty string
+    setNumberplate('');
+  };
+
+  const isLessThanFiveDigits = (number) => {
+    const numberString = number.toString();
+    return numberString.length < 5;
   };
 
   return (
